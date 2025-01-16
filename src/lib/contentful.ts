@@ -1,13 +1,27 @@
-import { createClient, EntrySkeletonType } from 'contentful';
+import { createClient } from 'contentful';
 import { createClient as createManagementClient } from 'contentful-management';
 
+if (!process.env.CONTENTFUL_SPACE_ID) {
+  throw new Error('CONTENTFUL_SPACE_ID environment variable is not defined');
+}
+
+if (!process.env.CONTENTFUL_ACCESS_TOKEN) {
+  throw new Error('CONTENTFUL_ACCESS_TOKEN environment variable is not defined');
+}
+
+if (!process.env.CONTENTFUL_MANAGEMENT_TOKEN) {
+  throw new Error('CONTENTFUL_MANAGEMENT_TOKEN environment variable is not defined');
+}
+
+// Client for fetching content
 export const contentfulClient = createClient({
-  space: process.env.CONTENTFUL_SPACE_ID!,
-  accessToken: process.env.CONTENTFUL_ACCESS_TOKEN!,
+  space: process.env.CONTENTFUL_SPACE_ID,
+  accessToken: process.env.CONTENTFUL_ACCESS_TOKEN,
 });
 
+// Client for managing content (creating subscribers, etc.)
 export const contentfulManagementClient = createManagementClient({
-  accessToken: process.env.CONTENTFUL_MANAGEMENT_TOKEN!,
+  accessToken: process.env.CONTENTFUL_MANAGEMENT_TOKEN,
 });
 
 export interface NewsletterPost {

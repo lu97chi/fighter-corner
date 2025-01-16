@@ -32,19 +32,25 @@ export default function Home() {
       <section className="relative h-[80vh] -mt-12 flex items-center overflow-hidden">
         <div className="absolute inset-0 bg-black/60 z-10"></div>
         {!videoError ? (
-          <video 
-            autoPlay 
-            loop 
-            muted 
-            playsInline
-            onError={() => setVideoError(true)}
-            className="absolute inset-0 w-full h-full object-cover"
-          >
-            <source src="/hero-video.mp4" type="video/mp4" />
-          </video>
+          <div className="absolute inset-0 w-full h-full">
+            <video 
+              autoPlay 
+              loop 
+              muted 
+              playsInline
+              onError={() => setVideoError(true)}
+              className="absolute w-full h-full object-cover md:object-[center_30%]"
+              style={{
+                transform: 'scale(1.5)',  // Zoom in the video slightly
+                transformOrigin: 'center center'
+              }}
+            >
+              <source src="/hero-video.mp4" type="video/mp4" />
+            </video>
+          </div>
         ) : (
           <div 
-            className="absolute inset-0 w-full h-full bg-cover bg-center bg-no-repeat"
+            className="absolute inset-0 w-full h-full bg-cover bg-center bg-no-repeat scale-125"
             style={{
               backgroundImage: 'linear-gradient(to right, rgba(0,0,0,0.8), rgba(0,0,0,0.6)), url("/hero-fallback.jpg")'
             }}

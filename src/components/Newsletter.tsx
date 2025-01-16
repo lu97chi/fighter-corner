@@ -1,12 +1,14 @@
 'use client';
 
 import { useState } from 'react';
+import { useRouter } from 'next/navigation';
 
 interface NewsletterProps {
   onSubscribe: (email: string) => Promise<void>;
 }
 
 export default function Newsletter({ onSubscribe }: NewsletterProps) {
+  const router = useRouter();
   const [email, setEmail] = useState('');
   const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
   const [message, setMessage] = useState('');
@@ -21,6 +23,11 @@ export default function Newsletter({ onSubscribe }: NewsletterProps) {
       setStatus('success');
       setMessage('Thank you for subscribing!');
       setEmail('');
+      
+      // Redirect to the newsletter content page after a short delay
+      setTimeout(() => {
+        router.push('/newsletter/how-to-start');
+      }, 1500);
     } catch (error) {
       console.error('Error subscribing to newsletter:', error);
       setStatus('error');
