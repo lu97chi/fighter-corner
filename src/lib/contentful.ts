@@ -36,24 +36,24 @@ export interface NewsletterPost {
   } | null;
 }
 
-interface ContentfulNewsletterFields {
-  title: { 'en-US': string };
-  slug: { 'en-US': string };
-  excerpt: { 'en-US': string };
-  content: { 'en-US': string };
-  publishDate: { 'en-US': string };
-  featuredImage?: {
-    fields: {
-      url: { 'en-US': string };
-      title: { 'en-US': string };
-    };
-  };
-}
+// interface ContentfulNewsletterFields {
+//   title: { 'en-US': string };
+//   slug: { 'en-US': string };
+//   excerpt: { 'en-US': string };
+//   content: { 'en-US': string };
+//   publishDate: { 'en-US': string };
+//   featuredImage?: {
+//     fields: {
+//       url: { 'en-US': string };
+//       title: { 'en-US': string };
+//     };
+//   };
+// }
 
-interface ContentfulNewsletterPost extends EntrySkeletonType {
-  contentTypeId: 'newsletterPost';
-  fields: ContentfulNewsletterFields;
-}
+// interface ContentfulNewsletterPost extends EntrySkeletonType {
+//   contentTypeId: 'newsletterPost';
+//   fields: ContentfulNewsletterFields;
+// }
 
 export async function getNewsletterPosts(limit = 3): Promise<NewsletterPost[]> {
   const response = await contentfulClient.getEntries({
@@ -62,6 +62,7 @@ export async function getNewsletterPosts(limit = 3): Promise<NewsletterPost[]> {
     limit,
   });
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   return response.items.map((item: any) => {
     const { fields } = item;
     return {

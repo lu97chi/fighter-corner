@@ -1,15 +1,11 @@
 import { Entry, EntrySkeletonType } from 'contentful';
 
-interface ContentfulFile {
-  url: string;
-}
-
-interface ContentfulFields {
-  file: ContentfulFile;
-}
-
 interface ContentfulImage {
-  fields: ContentfulFields;
+  fields: {
+    file: {
+      url: string;
+    };
+  };
 }
 
 interface ContentNode {
@@ -27,15 +23,15 @@ interface ContentDocument {
 }
 
 interface Schedule {
-  monday: string[];
-  tuesday: string[];
+  monday: Array<string>;
+  tuesday: Array<string>;
 }
 
 export interface NewsletterPost extends EntrySkeletonType {
   contentTypeId: 'newsletterPost';
   fields: {
     title: string;
-    publishDate: string;
+    publishDate?: string;
     readTime: string;
     heroImage: ContentfulImage;
     content: ContentDocument;

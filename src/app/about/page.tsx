@@ -34,7 +34,7 @@ export default function About() {
             mission: to provide world-class training in a welcoming environment.
           </p>
           <p>
-            Today, we continue to push the boundaries of what's possible, helping both
+            Today, we continue to push the boundaries of what&apos;s possible, helping both
             beginners and professional fighters achieve their goals through dedication,
             discipline, and expert guidance.
           </p>

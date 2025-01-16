@@ -1,13 +1,17 @@
 import { contentfulClient } from '@/lib/contentful';
-import { NewsletterPost } from '@/types';
-import { NextResponse } from 'next/server';
+import { NewsletterPost } from '../../../../types';
+import { NextRequest, NextResponse } from 'next/server';
+
+type Context = {
+  params: Promise<{ id: string }>
+}
 
 export async function GET(
-  request: Request,
-  { params }: { params: { id: string } }
-) {
+  _request: NextRequest,
+  context: Context
+): Promise<NextResponse> {
   try {
-    const entry = await contentfulClient.getEntry<NewsletterPost>(params.id);
+    const entry = await contentfulClient.getEntry<NewsletterPost>((await context.params).id);
     
     if (!entry) {
       return NextResponse.json(
@@ -19,7 +23,7 @@ export async function GET(
     return NextResponse.json(entry);
   } catch (error) {
     console.error('Error fetching newsletter post:', error);
-    return NextResponse.json(
+    return NextResponse.json(   
       { error: 'Failed to fetch newsletter post' },
       { status: 500 }
     );
